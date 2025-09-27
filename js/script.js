@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ===== DROPDOWN SECTIONS FUNCTIONALITY (ACCORDION STYLE) =====
+    // ===== DROPDOWN SECTIONS FUNCTIONALITY =====
     const dropdownSections = document.querySelectorAll('.dropdown-section');
     
     dropdownSections.forEach(section => {
@@ -241,21 +241,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (header) {
             header.addEventListener('click', function() {
-                const isCurrentlyCollapsed = section.classList.contains('collapsed');
-                
-                // Close all other sections first
-                dropdownSections.forEach(otherSection => {
-                    if (otherSection !== section) {
-                        otherSection.classList.add('collapsed');
-                    }
-                });
-                
-                // Toggle the current section
-                if (isCurrentlyCollapsed) {
-                    section.classList.remove('collapsed');
-                } else {
-                    section.classList.add('collapsed');
-                }
+                // Simply toggle the current section without affecting others
+                section.classList.toggle('collapsed');
             });
         }
     });
