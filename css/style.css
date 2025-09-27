@@ -1,5 +1,5 @@
 /* Modern Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'); */
 
 /* Custom Font - Vocago */
 @font-face {
@@ -34,6 +34,60 @@
     font-weight: normal;
     font-style: italic;
     font-display: swap;
+}
+
+/* Lazy Loading Styles */
+img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+img.loading {
+    opacity: 0.5;
+}
+
+img.loaded {
+    opacity: 1;
+    background: none;
+    animation: none;
+}
+
+img.error {
+    opacity: 0.3;
+    background: #f5f5f5;
+    animation: none;
+}
+
+@keyframes loading-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Skeleton loading for team members */
+.team-member img[data-src] {
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1) 25%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(255, 255, 255, 0.1) 75%);
+    background-size: 200% 100%;
+    border-radius: 50%;
+}
+
+/* Skeleton loading for sponsor logos */
+.partner-logo img[data-src] {
+    background: linear-gradient(90deg, 
+        rgba(0, 212, 255, 0.1) 25%, 
+        rgba(0, 212, 255, 0.2) 50%, 
+        rgba(0, 212, 255, 0.1) 75%);
+    background-size: 200% 100%;
+    border-radius: 10px;
 }
 
 /* Global Styles */
@@ -161,22 +215,23 @@ section {
 }
 
 .earth-crack-left {
-    left: 0;
-    width: 85%;
+    left: 15%;
+    width: 42%;
 }
 
 .earth-crack-right {
-    right: 0;
-    width: 85%;
+    right: 15%;
+    width: 42%;
 }
 
 .earth-crack-left img,
 .earth-crack-right img {
     width: 100%;
     height: auto;
-    max-height: 600px;
+    max-height: 500px;
     object-fit: contain;
     object-position: center;
+    display: block;
 }
 
 /* Responsive adjustments for cracked earth */
@@ -186,14 +241,19 @@ section {
         margin: 15px 0 -20px 0;
     }
     
-    .earth-crack-left,
+    .earth-crack-left {
+        left: 8%;
+        width: 40%;
+    }
+    
     .earth-crack-right {
-        width: 80%;
+        right: 8%;
+        width: 40%;
     }
     
     .earth-crack-left img,
     .earth-crack-right img {
-        max-height: 450px;
+        max-height: 400px;
     }
 }
 
@@ -203,14 +263,22 @@ section {
         margin: 10px 0 -15px 0;
     }
     
-    .earth-crack-left,
+    .earth-crack-left {
+        left: 10%;
+        width: 35%;
+    }
+    
     .earth-crack-right {
-        width: 75%;
+        right: 10%;
+        width: 35%;
     }
     
     .earth-crack-left img,
     .earth-crack-right img {
-        max-height: 400px;
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        object-position: center;
     }
 }
 
@@ -228,7 +296,7 @@ section {
 
 .nexus-reveal-title {
     font-family: 'PF Bold', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 2.8rem;
+    font-size: 4.5rem;
     font-weight: 700;
     background: linear-gradient(90deg, 
         rgba(255, 255, 255, 0.95) 0%, 
@@ -250,7 +318,7 @@ section {
 
 .nexus-reveal-tagline {
     font-family: 'PF Italics', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     font-weight: normal;
     background: linear-gradient(90deg, #ffb3b3, #ffcc99, #ffff99, #ccffcc, #99ccff, #ffb3ff, #ffffcc, #ccffff, #ffccff);
     background-size: 100% 100%;
@@ -259,10 +327,10 @@ section {
     background-clip: text;
     text-transform: uppercase;
     font-style: italic;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     margin: 15px 0 0 0;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 204, 255, 0.3);
-    line-height: 1.8;
+    line-height: 1.4;
     position: relative;
     text-align: center;
     opacity: 1;
@@ -288,15 +356,15 @@ section {
 @keyframes gradient-glow {
     0% {
         background-position: 0% 50%;
-        text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
     }
     50% {
         background-position: 100% 50%;
-        text-shadow: 0 0 40px rgba(255, 0, 255, 0.8);
+        text-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
     }
     100% {
         background-position: 0% 50%;
-        text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
     }
 }
 
@@ -314,7 +382,7 @@ section {
 @media (max-width: 768px) {
     .nexus-reveal-title {
         font-family: 'PF Bold', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 2.8rem;
+        font-size: 3.8rem;
         font-weight: 600;
         letter-spacing: 0.2em;
         background: linear-gradient(90deg, 
@@ -332,7 +400,7 @@ section {
     
     .nexus-reveal-tagline {
         font-family: 'PF Italics', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         font-weight: normal;
         background: linear-gradient(90deg, #ffb3b3, #ffcc99, #ffff99, #ccffcc, #99ccff, #ffb3ff, #ffffcc, #ccffff, #ffccff);
         background-size: 100% 100%;
@@ -341,9 +409,9 @@ section {
         background-clip: text;
         text-transform: uppercase;
         font-style: italic;
-        letter-spacing: 2px;
+        letter-spacing: 1.2px;
         text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 204, 255, 0.3);
-        line-height: 1.8;
+        line-height: 1.3;
         position: relative;
         text-align: center;
         opacity: 1;
@@ -361,7 +429,7 @@ section {
 @media (max-width: 480px) {
     .nexus-reveal-title {
         font-family: 'PF Bold', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 2rem;
+        font-size: 3rem;
         font-weight: 700;
         letter-spacing: 0.12em;
         background: linear-gradient(90deg, 
@@ -379,7 +447,7 @@ section {
     
     .nexus-reveal-tagline {
         font-family: 'PF Italics', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 1rem;
+        font-size: 0.8rem;
         font-weight: normal;
         background: linear-gradient(90deg, #ffb3b3, #ffcc99, #ffff99, #ccffcc, #99ccff, #ffb3ff, #ffffcc, #ccffff, #ffccff);
         background-size: 100% 100%;
@@ -388,9 +456,9 @@ section {
         background-clip: text;
         text-transform: uppercase;
         font-style: italic;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
         text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 204, 255, 0.3);
-        line-height: 1.8;
+        line-height: 1.2;
         position: relative;
         text-align: center;
         opacity: 1;
@@ -434,7 +502,7 @@ section {
     position: relative;
     padding: 15px 30px;
     border-radius: 10px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(6px);
 }
 
 .section-header h2::before {
@@ -658,8 +726,8 @@ section {
 }
 
 .hero-center .nexus-logo img {
-    width: 450px;
-    height: 450px;
+    width: 550px;
+    height: 550px;
     object-fit: contain;
     /* Removed border-radius for sharp edges */
     filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.4))
@@ -673,10 +741,7 @@ section {
 }
 
 .hero-center .nexus-logo img:hover {
-    transform: scale3d(1.03, 1.03, 1);
-    filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.6))
-            drop-shadow(0 0 40px rgba(34, 197, 94, 0.4))
-            drop-shadow(0 0 60px rgba(34, 197, 94, 0.2));
+    transform: scale3d(1.02, 1.02, 1);
 }
 
 
@@ -754,7 +819,7 @@ section {
 /* Fourth line - Enhanced rainbow effect with PF Italics font */
 .hero-center p:nth-child(5) {
     font-family: 'PF Italics', 'Inter', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     font-weight: normal;
     background: linear-gradient(90deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000);
     background-size: 600% 600%;
@@ -762,14 +827,14 @@ section {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-style: italic;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     margin-top: 30px;
     margin-bottom: 30px;
     text-shadow: 
         0 0 30px rgba(255, 0, 0, 0.8),
         0 0 50px rgba(0, 255, 0, 0.6),
         0 0 70px rgba(0, 0, 255, 0.4);
-    line-height: 1.8;
+    line-height: 1.6;
     position: relative;
     text-align: center;
     animation: rainbowTransition 3s linear infinite;
@@ -891,7 +956,6 @@ section {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 255, 136, 0.2);
 }
 
 /* About BEST Section */
@@ -976,7 +1040,7 @@ section {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     border: 1px solid rgba(0, 212, 255, 0.2);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(6px);
     position: relative;
     overflow: hidden;
 }
@@ -1776,7 +1840,7 @@ section {
     padding: 35px 30px;
     text-align: center;
     border: 2px solid rgba(255, 215, 0, 0.15);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(8px);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -2840,6 +2904,14 @@ textarea {
     margin-bottom: 15px;
 }
 
+.website-credit {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 10px;
+    font-style: italic;
+    font-weight: 300;
+}
+
 .footer-links h3, .footer-newsletter h3 {
     font-size: 1.3rem;
     margin-bottom: 20px;
@@ -3057,9 +3129,42 @@ textarea {
         text-align: center;
     }
     
+    .website-credit {
+        font-size: 0.8rem;
+        margin-top: 8px;
+        text-align: center;
+    }
+    
+    /* Hero center mobile adjustments */
+    .hero-center {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+        margin: 0 auto !important;
+    }
+    
     /* NEXUS logo mobile adjustments */
+    .nexus-logo {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin: 0 auto 20px auto !important;
+        text-align: center !important;
+    }
+    
     .nexus-logo img {
-        max-width: 280px;
+        max-width: 280px !important;
+        width: 280px !important;
+        height: 280px !important;
+        object-fit: contain !important;
+        display: block !important;
+        margin: 0 auto !important;
     }
     
     /* Floating logos mobile adjustments */
@@ -3070,7 +3175,7 @@ textarea {
     
     .floating-best-logo {
         top: 10px;
-        right: 45px;
+        right: 10px; /* Moved from default 20px to prevent cutting off on mobile */
     }
     
     .floating-best-logo img {
@@ -3248,17 +3353,51 @@ textarea {
         margin-top: 15px;
     }
     
-    /* Small mobile responsive styling for nexus subtitle lines */
+    /* Mobile responsive styling for nexus subtitle lines */
     .nexus-line {
         font-family: 'Vocago', 'Montserrat', 'Poppins', sans-serif !important;
         font-size: 1.1rem !important;
         letter-spacing: 1px !important;
-        margin: 12px 0 !important;
-        line-height: 1.6 !important;
+        margin: 8px 0 !important;
+        line-height: 1.4 !important;
+        text-align: center !important;
+        display: block !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        padding: 0 10px !important;
     }
     
     .nexus-subtitle-lines {
-        margin-top: -70px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto 30px auto !important;
+        padding: 0 20px !important;
+        gap: 12px !important;
+    }
+    
+    .nexus-line {
+        font-size: 1.1rem !important;
+        letter-spacing: 1px !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        display: block !important;
+        line-height: 1.4 !important;
+    }
+    
+    .hero-center .tagline {
+        display: block !important;
+        width: 100% !important;
+        margin: 25px auto 0 auto !important;
+        text-align: center !important;
+        font-size: 1.2rem !important;
+        padding: 0 20px !important;
+        line-height: 1.4 !important;
     }
     
     /* Mobile War Narrative */
@@ -3274,18 +3413,7 @@ textarea {
         letter-spacing: 1px;
     }
     
-    /* Mobile responsive styling for nexus subtitle lines */
-    .nexus-line {
-        font-family: 'Vocago', 'Montserrat', 'Poppins', sans-serif !important;
-        font-size: 1.4rem !important;
-        letter-spacing: 1.2px !important;
-        margin: 15px 0 !important;
-        line-height: 1.7 !important;
-    }
-    
-    .nexus-subtitle-lines {
-        margin-top: -60px !important;
-    }
+    /* Duplicate mobile styling removed - consolidated above */
     
     .vs-divider {
         font-size: 1.4rem;
@@ -4271,36 +4399,128 @@ textarea {
 @media (max-width: 768px) {
     .gallery-folders {
         margin: 0 1rem;
+        gap: 1.5rem;
+    }
+    
+    .gallery-folder {
+        margin-bottom: 2rem;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.2);
     }
     
     .folder-header {
-        padding: 1rem 1.5rem;
+        padding: 1.2rem 1.5rem;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(0, 0, 0, 0.4) 100%);
+        border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
     
     .folder-icon {
         margin-right: 1rem;
+        color: #FFD700;
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
     }
     
     .folder-icon i {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .folder-info {
+        flex: 1;
     }
     
     .folder-info h3 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+        color: #FFD700;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .folder-info p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+    }
+    
+    .folder-content {
+        background: rgba(0, 0, 0, 0.1);
     }
     
     .images-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 0.8rem;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
         padding: 1.5rem;
     }
     
+    .image-item {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+    
+    .image-item:hover {
+        transform: translateY(-3px);
+    }
+    
     .image-item img {
-        height: 120px;
+        height: 140px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
     }
     
     .coming-soon {
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        margin: 1rem;
+        font-size: 1.1rem;
+    }
+    
+    /* Drive Link Section Mobile Improvements */
+    .drive-link-section {
+        padding: 1.5rem;
+        margin: 0 1rem 2rem;
+        border-radius: 12px;
+    }
+    
+    .drive-link-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
         padding: 2rem 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .drive-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .drive-info h4 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .drive-info p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+    
+    .drive-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        border-radius: 10px;
+        align-self: center;
+        width: fit-content;
     }
 }
 
@@ -4608,7 +4828,7 @@ textarea {
 }
 
 .dropdown-section .section-content {
-    max-height: 1500px;
+    max-height: 3000px;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 1;
@@ -4672,44 +4892,7 @@ textarea {
     height: 60px;
 }
 
-/* Hamburger Menu */
-.hamburger-menu {
-    position: fixed;
-    top: 20px;
-    right: 120px;
-    width: 30px;
-    height: 25px;
-    cursor: pointer;
-    z-index: 1002;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    pointer-events: auto;
-    transition: all 0.3s ease;
-}
-
-.hamburger-menu span {
-    width: 100%;
-    height: 3px;
-    background: #ffd700;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.hamburger-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-    background: #fff;
-}
-
-.hamburger-menu.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(8px, -8px);
-    background: #fff;
-}
+/* Hamburger Menu - Removed for mobile optimization */
 
 /* Side Menu */
 .side-menu {
@@ -4815,19 +4998,9 @@ textarea {
     pointer-events: auto;
 }
 
-/* Hide hamburger menu on desktop */
-@media screen and (min-width: 769px) {
-    .hamburger-menu {
-        display: none;
-    }
-}
-
 /* Mobile Large (Landscape) */
 @media screen and (max-width: 768px) {
-    /* Hamburger menu is visible by default */
-    .hamburger-menu {
-        display: flex;
-    }
+    /* Hamburger menu removed for cleaner mobile experience */
     
     /* Adjust side menu for smaller screens */
     .side-menu {
@@ -4916,6 +5089,7 @@ textarea {
         grid-template-columns: 1fr;
         gap: 20px;
         padding: 0 10px;
+        margin-bottom: 30px;
     }
     
     .sponsors-grid {
@@ -5049,7 +5223,11 @@ textarea {
         left: 10px;
     }
     
-
+    .floating-best-logo {
+        top: 10px;
+        right: 45px;
+    }
+    
     
     /* Earth separation small mobile adjustments */
     .earth-separation {
@@ -5164,7 +5342,7 @@ textarea {
     
     /* Mobile Dropdown Content Rules */
     .dropdown-section .section-content {
-        max-height: 1500px;
+        max-height: 3000px;
         overflow: hidden;
         transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
         opacity: 1;
@@ -5195,6 +5373,73 @@ textarea {
         padding: 0 5px;
     }
     
+    /* Gallery Section - Small Mobile Optimization */
+    .gallery-folders {
+        margin: 0 0.5rem;
+        gap: 1rem;
+    }
+    
+    .gallery-folder {
+        margin-bottom: 1.5rem;
+    }
+    
+    .folder-header {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .folder-icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .folder-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .folder-info p {
+        font-size: 0.85rem;
+    }
+    
+    .images-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+    
+    .image-item img {
+        height: 120px;
+    }
+    
+    .coming-soon {
+        padding: 2rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .drive-link-section {
+        padding: 1rem;
+        margin: 0 0.5rem 1.5rem;
+    }
+    
+    .drive-link-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .drive-info h4 {
+        font-size: 1.2rem;
+    }
+    
+    .drive-info p {
+        font-size: 0.9rem;
+    }
+    
+    .drive-button {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
     /* Team Grid - Single column on small mobile */
     .team-grid {
         grid-template-columns: 1fr;
@@ -5210,6 +5455,15 @@ textarea {
         flex-direction: column;
         text-align: center;
         padding: 15px;
+    }
+    
+    .leader-card:nth-child(even) {
+        flex-direction: column-reverse !important;
+    }
+    
+    .leader-card:nth-child(even) .leader-image {
+        margin-bottom: 0;
+        margin-top: 15px;
     }
     
     .leader-image {

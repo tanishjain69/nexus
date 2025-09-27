@@ -1,48 +1,64 @@
 // Website functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Hamburger menu functionality
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const sideMenu = document.querySelector('.side-menu');
-    const menuOverlay = document.querySelector('.menu-overlay');
-    const closeMenu = document.querySelector('.close-menu');
-    const sideMenuLinks = document.querySelectorAll('.side-menu-links a');
+    // Advanced Lazy Loading Implementation
+    // function initLazyLoading() {
+    //     // Create intersection observer for lazy loading
+    //     const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+    //         entries.forEach(entry => {
+    //             if (entry.isIntersecting) {
+    //                 const img = entry.target;
+                    
+    //                 // Add loading class for smooth transition
+    //                 img.classList.add('loading');
+                    
+    //                 // Load the actual image
+    //                 if (img.dataset.src) {
+    //                     img.src = img.dataset.src;
+    //                     img.removeAttribute('data-src');
+    //                 }
+                    
+    //                 // Handle load event
+    //                 img.onload = () => {
+    //                     img.classList.remove('loading');
+    //                     img.classList.add('loaded');
+    //                 };
+                    
+    //                 // Handle error event
+    //                 img.onerror = () => {
+    //                     img.classList.remove('loading');
+    //                     img.classList.add('error');
+    //                 };
+                    
+    //                 // Stop observing this image
+    //                 observer.unobserve(img);
+    //             }
+    //         });
+    //     }, {
+    //         rootMargin: '50px 0px',
+    //         threshold: 0.01
+    //     });
 
-    // Check if elements exist before adding event listeners
-    if (hamburgerMenu && sideMenu && menuOverlay && closeMenu) {
-        // Open menu
-        hamburgerMenu.addEventListener('click', function() {
-            hamburgerMenu.classList.add('active');
-            sideMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
+    //     // Observe all lazy images
+    //     const lazyImages = document.querySelectorAll('img[data-src]');
+    //     lazyImages.forEach(img => {
+    //         lazyImageObserver.observe(img);
+    //     });
 
-        // Close menu function
-        function closeSideMenu() {
-            hamburgerMenu.classList.remove('active');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+    //     // Fallback for browsers without Intersection Observer
+    //     if (!('IntersectionObserver' in window)) {
+    //         lazyImages.forEach(img => {
+    //             if (img.dataset.src) {
+    //                 img.src = img.dataset.src;
+    //                 img.removeAttribute('data-src');
+    //             }
+    //         });
+    //     }
+    // }
 
-        // Close menu when clicking close button
-        closeMenu.addEventListener('click', closeSideMenu);
+    // // Initialize lazy loading
+    // initLazyLoading();
 
-        // Close menu when clicking overlay
-        menuOverlay.addEventListener('click', closeSideMenu);
-
-        // Close menu when clicking a menu link
-        sideMenuLinks.forEach(link => {
-            link.addEventListener('click', closeSideMenu);
-        });
-
-        // Close menu with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeSideMenu();
-            }
-        });
-    }
+    // Hamburger menu functionality removed for cleaner mobile experience
 
     // Simple scroll behavior for about section
     const aboutSection = document.getElementById('about');
@@ -94,10 +110,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Animation on scroll
+    // Optimized Animation on scroll with better performance
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.15,
+        rootMargin: '0px 0px -30px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
@@ -105,16 +121,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                // Unobserve after animation to improve performance
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.section, .card, .event-item');
+    // Observe elements for animation with reduced set
+    const animateElements = document.querySelectorAll('.section, .card');
     animateElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transform = 'translateY(15px)';
+        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        el.style.willChange = 'opacity, transform';
         observer.observe(el);
     });
 
@@ -156,29 +175,36 @@ document.addEventListener('DOMContentLoaded', function() {
         
         earthObserver.observe(crackedEarthSection);
         
-        // Fallback scroll listener with improved throttling
+        // Optimized fallback scroll listener with better throttling
         let lastScrollTime = 0;
-        const scrollThrottle = 100; // Reduced frequency for better performance
+        let ticking = false;
+        const scrollThrottle = 150; // Increased throttle for better performance
         
         function handleScrollFallback() {
             const now = Date.now();
             if (now - lastScrollTime < scrollThrottle) return;
             lastScrollTime = now;
             
-            const sectionRect = crackedEarthSection.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const triggerPoint = windowHeight * 0.6;
-            
-            if (sectionRect.top <= triggerPoint && sectionRect.bottom >= 0 && !earthSeparated && !isAnimating) {
-                isAnimating = true;
-                crackedEarthSection.classList.add('earth-separated');
-                earthSeparated = true;
-                setTimeout(() => { isAnimating = false; }, 1500);
-            } else if (sectionRect.top > triggerPoint && earthSeparated && !isAnimating) {
-                isAnimating = true;
-                crackedEarthSection.classList.remove('earth-separated');
-                earthSeparated = false;
-                setTimeout(() => { isAnimating = false; }, 1500);
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const sectionRect = crackedEarthSection.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    const triggerPoint = windowHeight * 0.6;
+                    
+                    if (sectionRect.top <= triggerPoint && sectionRect.bottom >= 0 && !earthSeparated && !isAnimating) {
+                        isAnimating = true;
+                        crackedEarthSection.classList.add('earth-separated');
+                        earthSeparated = true;
+                        setTimeout(() => { isAnimating = false; }, 1000); // Reduced timeout
+                    } else if (sectionRect.top > triggerPoint && earthSeparated && !isAnimating) {
+                        isAnimating = true;
+                        crackedEarthSection.classList.remove('earth-separated');
+                        earthSeparated = false;
+                        setTimeout(() => { isAnimating = false; }, 1000); // Reduced timeout
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         }
         
@@ -215,22 +241,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (header) {
             header.addEventListener('click', function() {
-                // Check if this section is currently collapsed
-                const isCurrentlyCollapsed = section.classList.contains('collapsed');
-                
-                // Close all other dropdowns first
-                dropdownSections.forEach(otherSection => {
-                    if (otherSection !== section) {
-                        otherSection.classList.add('collapsed');
-                    }
-                });
-                
-                // Toggle the current section
-                if (isCurrentlyCollapsed) {
-                    section.classList.remove('collapsed');
-                } else {
-                    section.classList.add('collapsed');
-                }
+                // Simply toggle the current section without affecting others
+                section.classList.toggle('collapsed');
             });
         }
     });
@@ -270,21 +282,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (header && content) {
             header.addEventListener('click', function() {
-                const isActive = folder.classList.contains('active');
-                
-                // Close all other folders
-                galleryFolders.forEach(otherFolder => {
-                    if (otherFolder !== folder) {
-                        otherFolder.classList.remove('active');
-                    }
-                });
-
-                // Toggle current folder
-                if (isActive) {
-                    folder.classList.remove('active');
-                } else {
-                    folder.classList.add('active');
-                }
+                // Simply toggle the current folder without affecting others
+                folder.classList.toggle('active');
             });
 
             // Add keyboard accessibility
