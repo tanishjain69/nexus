@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ===== DROPDOWN SECTIONS FUNCTIONALITY =====
+    // ===== DROPDOWN SECTIONS FUNCTIONALITY (ACCORDION STYLE) =====
     const dropdownSections = document.querySelectorAll('.dropdown-section');
     
     dropdownSections.forEach(section => {
@@ -241,10 +241,28 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (header) {
             header.addEventListener('click', function() {
-                // Simply toggle the current section without affecting others
-                section.classList.toggle('collapsed');
+                const isCurrentlyCollapsed = section.classList.contains('collapsed');
+                
+                // Close all other sections first
+                dropdownSections.forEach(otherSection => {
+                    if (otherSection !== section) {
+                        otherSection.classList.add('collapsed');
+                    }
+                });
+                
+                // Toggle the current section
+                if (isCurrentlyCollapsed) {
+                    section.classList.remove('collapsed');
+                } else {
+                    section.classList.add('collapsed');
+                }
             });
         }
+    });
+    
+    // Handle window resize to maintain proper behavior
+    window.addEventListener('resize', function() {
+        // Optional: You can add logic here if needed when switching between mobile/desktop
     });
 
     // ===== EVENT CARDS FUNCTIONALITY =====
