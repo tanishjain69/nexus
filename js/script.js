@@ -95,10 +95,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scrolling for anchor links
+    // Smooth scrolling for anchor links (excluding dropdown section headers)
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     anchorLinks.forEach(link => {
         link.addEventListener('click', function(e) {
+            // Check if this click is coming from a dropdown section header
+            const isDropdownHeader = this.closest('.section-header');
+            if (isDropdownHeader) {
+                return; // Don't handle smooth scrolling for dropdown headers
+            }
+            
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
@@ -240,9 +246,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const header = section.querySelector('.section-header');
         
         if (header) {
-            header.addEventListener('click', function() {
-                // Simply toggle the current section without affecting others
+            header.addEventListener('click', function(e) {
+                // Basic prevention to avoid unwanted navigation
+                e.preventDefault();
+                
+                // Toggle the collapsed state of this section only
                 section.classList.toggle('collapsed');
+            });
+            
+            // Add keyboard accessibility
+            header.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    header.click();
+                }
             });
         }
     });
