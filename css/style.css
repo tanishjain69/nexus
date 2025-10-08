@@ -1480,6 +1480,15 @@ section {
     box-shadow: 0 15px 35px rgba(255, 193, 7, 0.5);
 }
 
+/* Zoom effect for Vice President's image */
+.leader-card:first-child .leader-image img {
+    transform: scale(1.15);
+}
+
+.leader-card:first-child .leader-image img:hover {
+    transform: scale(1.2);
+}
+
 .leader-content {
     flex: 1;
 }
