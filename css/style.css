@@ -54,59 +54,7 @@
     font-display: swap;
 }
 
-/* Lazy Loading Styles */
-img[data-src] {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading-shimmer 1.5s infinite;
-}
 
-img.loading {
-    opacity: 0.5;
-}
-
-img.loaded {
-    opacity: 1;
-    background: none;
-    animation: none;
-}
-
-img.error {
-    opacity: 0.3;
-    background: #f5f5f5;
-    animation: none;
-}
-
-@keyframes loading-shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-/* Skeleton loading for team members */
-.team-member img[data-src] {
-    background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 0.1) 25%, 
-        rgba(255, 255, 255, 0.2) 50%, 
-        rgba(255, 255, 255, 0.1) 75%);
-    background-size: 200% 100%;
-    border-radius: 50%;
-}
-
-/* Skeleton loading for sponsor logos */
-.partner-logo img[data-src] {
-    background: linear-gradient(90deg, 
-        rgba(0, 212, 255, 0.1) 25%, 
-        rgba(0, 212, 255, 0.2) 50%, 
-        rgba(0, 212, 255, 0.1) 75%);
-    background-size: 200% 100%;
-    border-radius: 10px;
-}
 
 /* Global Styles */
 :root {

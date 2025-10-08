@@ -1,62 +1,6 @@
 // Website functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Advanced Lazy Loading Implementation
-    // function initLazyLoading() {
-    //     // Create intersection observer for lazy loading
-    //     const lazyImageObserver = new IntersectionObserver((entries, observer) => {
-    //         entries.forEach(entry => {
-    //             if (entry.isIntersecting) {
-    //                 const img = entry.target;
-                    
-    //                 // Add loading class for smooth transition
-    //                 img.classList.add('loading');
-                    
-    //                 // Load the actual image
-    //                 if (img.dataset.src) {
-    //                     img.src = img.dataset.src;
-    //                     img.removeAttribute('data-src');
-    //                 }
-                    
-    //                 // Handle load event
-    //                 img.onload = () => {
-    //                     img.classList.remove('loading');
-    //                     img.classList.add('loaded');
-    //                 };
-                    
-    //                 // Handle error event
-    //                 img.onerror = () => {
-    //                     img.classList.remove('loading');
-    //                     img.classList.add('error');
-    //                 };
-                    
-    //                 // Stop observing this image
-    //                 observer.unobserve(img);
-    //             }
-    //         });
-    //     }, {
-    //         rootMargin: '50px 0px',
-    //         threshold: 0.01
-    //     });
 
-    //     // Observe all lazy images
-    //     const lazyImages = document.querySelectorAll('img[data-src]');
-    //     lazyImages.forEach(img => {
-    //         lazyImageObserver.observe(img);
-    //     });
-
-    //     // Fallback for browsers without Intersection Observer
-    //     if (!('IntersectionObserver' in window)) {
-    //         lazyImages.forEach(img => {
-    //             if (img.dataset.src) {
-    //                 img.src = img.dataset.src;
-    //                 img.removeAttribute('data-src');
-    //             }
-    //         });
-    //     }
-    // }
-
-    // // Initialize lazy loading
-    // initLazyLoading();
 
     // Hamburger menu functionality removed for cleaner mobile experience
 
